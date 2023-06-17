@@ -5,6 +5,7 @@ import com.zikan.webblog_restapi.payload.PostDto;
 import com.zikan.webblog_restapi.payload.PostResponse;
 import com.zikan.webblog_restapi.service.PostService;
 import com.zikan.webblog_restapi.utils.AppConstants;
+import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class PostController {
     }
 //    create blog post restful Api
     @PostMapping
-    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto){
+    public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto){
         return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
     }
     @GetMapping
@@ -44,7 +45,7 @@ public class PostController {
 //
 //        Update post by Id
     @PutMapping("/{id}")
-    public ResponseEntity <PostDto> updatePost (@RequestBody PostDto postDto, @PathVariable (name = "id") long id){
+    public ResponseEntity <PostDto> updatePost (@Valid @RequestBody PostDto postDto, @PathVariable (name = "id") long id){
         PostDto postResponse = postService.updatePost(postDto, id);
         return new ResponseEntity<>(postResponse, HttpStatus.OK);
     }
